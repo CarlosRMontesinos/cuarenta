@@ -3,7 +3,7 @@ import datetime
 
 class TrainingFile:
 
-	lData = ["Fist Line"]
+	lData = []
 
 	oDate = datetime.datetime.now()
 	print(oDate)	
@@ -19,10 +19,10 @@ class TrainingFile:
 	sFileFullPath = sFilePath + sFileName
 	
 	# Create file
-	oFile = io.open(sFileFullPath,"w+")
-	oFile.write(unicode("TableCards,CompCards,NextCompCards,PointsEarned\n"))
-	print(sFileFullPath)	
-	oFile.close()
+#	oFile = io.open(sFileFullPath,"w+")
+#	oFile.write(unicode("TableCards,CompCards,NextCompCards,PointsEarned\n"))
+#	print(sFileFullPath)	
+#	oFile.close()
 
 #	def __init__(self):
 		
@@ -49,32 +49,41 @@ class TrainingFile:
 		# sCompCards -> Computers cards before the computer draws next card
 		# sNextCompCard -> Card drawn by the computer using the rand() function
 		# sPointsEarned -> Points earned after the table has been evaluated
-		lData.append( sTableCards + "," + sCompCards + "," + sNextCompCard + "," + sPointsEarned )
+		self.lData.append( sTableCards + "," + sCompCards + "," + sNextCompCard + "," + sPointsEarned )
 
 	def pushToFiles(self):
 		
 		# Split data into training and test 70%/30%
 		# Print Training Data
-		iSplit70 = int(self.lData.len() * 0.7)
-		iSplit30 = lData.len() - iSplit70
+#		iSplit70 = int( len(self.lData) * 0.7)
+#		iSplit30 = len(self.lData) - iSplit70
 
-		if iSplit70 >= 7:
- 
+#		if iSplit70 >= 7:
+			# Print Training Data
+#			oFile = io.open(self.sTrainFileFullPath,"w+")
+			# Print first line (# Data Rows, # Label Columns) 
+#			oFile.write( unicode( str(iSplit70) + ",3\n") )
+#			for sDataLine in self.lData[0:iSplit70-2]:
+#	  			oFile.write( unicode( sDataLine + "\n") )
+#			oFile.close()		
+
+			# Print Testing Data
+#			oFile = io.open(self.sTestFileFullPath,"w+")
+			# Print first line (# Data Rows, # Label Columns) 
+#			oFile.write( unicode( str(iSplit30) + ",3\n") )
+#			for sDataLine in self.lData[iSplit70-1: len(self.lData)-1]:
+#	  			oFile.write( unicode( sDataLine + "\n") )
+#			oFile.close()
+
+		iNumOfLabels = 3
+		if len(self.lData) > 0:
 			# Print Training Data
 			oFile = io.open(self.sTrainFileFullPath,"w+")
 			# Print first line (# Data Rows, # Label Columns) 
-			oFile.write( unicode("%s,%s\n") % str(iSplit70),  )
-			for sDataLine in self.lData[0:iSplit70-1]:
-	  			oFile.write( unicode("%s\n") % sDataLine )
-			oFile.close()		
-
-			# Print Testing Data
-			oFile = io.open(self.sTestFileFullPath,"w+")
-			# Print first line (# Data Rows, # Label Columns) 
-			oFile.write( unicode("%s,%s\n") % str(iSplit30),  )
-			for sDataLine in self.lData[iSplit70:self.lData.len()-1]:
-	  			oFile.write( unicode("%s\n") % sDataLine)
-			oFile.close()
+			oFile.write( unicode( str( len(self.lData) ) + "," + str(iNumOfLabels) + "\n") )
+			for sDataLine in self.lData:
+	  			oFile.write( unicode( sDataLine + "\n") )
+			oFile.close()	
 
 		else:
 			print("### NOT ENOUGH DATA COLLECTED TO CREATE FILES ###")

@@ -2,8 +2,8 @@ import cards
 import trainingfile
 import random
 import sys
-#from PyQt4 import QtCore, QtGui, uic
-import QtCore, QtGui, uic
+from PyQt4 import QtCore, QtGui, uic
+#import QtCore, QtGui, uic
 
 qtCreatorFile = "Cuarenta.ui" # Enter the .ui file name here.
 
@@ -64,6 +64,10 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 		# Update UI with cards
 		self.lbMyCards.setText( self.CardListToString(self.loPlayerCards) )
 	#	self.lbCompCards.setText( self.CardListToString(self.loCompCards) )
+
+	def closeEvent(self, event):
+		print "closing PyQtTest"
+		self.oTrainingFile.pushToFiles()
 
 	def initVars(self):
 		
@@ -177,9 +181,9 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 		# Store data for training purposes
 		if TRAINIG_FLAG == True and iPointsEarned > 0:
 			if self.bCompTurn:		
-				self.oTrainingFile.push(sTableCards,sCompCards,sNextCard,str(iPointsEarned) )
+				self.oTrainingFile.pushToStruct(sTableCards,sCompCards,sNextCard,str(iPointsEarned) )
 			else:
-				self.oTrainingFile.push(sTableCards,sPlayerCards,sNextCard,str(iPointsEarned) )
+				self.oTrainingFile.pushToStruct(sTableCards,sPlayerCards,sNextCard,str(iPointsEarned) )
 
 		# IF there is a winner
 			# Declare winner
