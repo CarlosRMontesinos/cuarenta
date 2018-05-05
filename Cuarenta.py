@@ -181,9 +181,9 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 		# Store data for training purposes
 		if TRAINIG_FLAG == True and iPointsEarned > 0:
 			if self.bCompTurn:		
-				self.oTrainingFile.pushToStruct(sTableCards,sCompCards,sNextCard,str(iPointsEarned) )
+				self.oTrainingFile.pushToStruct(sTableCards,sCompCards,sNextCard )
 			else:
-				self.oTrainingFile.pushToStruct(sTableCards,sPlayerCards,sNextCard,str(iPointsEarned) )
+				self.oTrainingFile.pushToStruct(sTableCards,sPlayerCards,sNextCard )
 
 		# IF there is a winner
 			# Declare winner

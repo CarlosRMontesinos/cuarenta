@@ -18,6 +18,9 @@ class TrainingFile:
 	sFileName = str(oDate.year) + str(oDate.month) + str(oDate.day) + str(oDate.hour) + str(oDate.minute) + str(oDate.second) + ".csv"
 	sFileFullPath = sFilePath + sFileName
 	
+	iXpad = 40
+	iYpad = 5
+	
 	# Create file
 #	oFile = io.open(sFileFullPath,"w+")
 #	oFile.write(unicode("TableCards,CompCards,NextCompCards,PointsEarned\n"))
@@ -42,14 +45,16 @@ class TrainingFile:
 		oFile.write(unicode(sDataLine))
 		oFile.close()
 
-	def pushToStruct(self,sTableCards,sCompCards,sNextCompCard,sPointsEarned):
+	def pushToStruct(self,sTableCards,sCompCards,sNextCompCard):
 		
 		# Parameter definiions during the training stage
 		# sTableCards -> Tables on the table before the computer draws next card
 		# sCompCards -> Computers cards before the computer draws next card
 		# sNextCompCard -> Card drawn by the computer using the rand() function
-		# sPointsEarned -> Points earned after the table has been evaluated
-		self.lData.append( sTableCards + "," + sCompCards + "," + sNextCompCard + "," + sPointsEarned )
+		sDataLine = self.spaceToComma(sTableCards,self.iXpad) + "," + self.spaceToComma(sCompCards,self.iYpad) + "," + sNextCompCard
+		#self.lData.append( sTableCards + "," + sCompCards + "," + sNextCompCard + "," + sPointsEarned )
+		self.lData.append( sDataLine )
+
 
 	def pushToFiles(self):
 		
@@ -75,7 +80,7 @@ class TrainingFile:
 #	  			oFile.write( unicode( sDataLine + "\n") )
 #			oFile.close()
 
-		iNumOfLabels = 3
+		iNumOfLabels = self.iXpad + self.iYpad
 		if len(self.lData) > 0:
 			# Print Training Data
 			oFile = io.open(self.sTrainFileFullPath,"w+")
@@ -87,3 +92,23 @@ class TrainingFile:
 
 		else:
 			print("### NOT ENOUGH DATA COLLECTED TO CREATE FILES ###")
+
+	def spaceToComma(self,sData,iTotalPad):
+		# Count number of spaces
+		# Ensure number of spaces is less than TotalPad
+		# Pad data to TotalPad
+		# Change space -> comma
+		print(sData)
+		# Remove the first char if it a space		
+		if sData[:1] == " ":
+			sData = sData[1:]
+		print(sData)
+		sRet = ""
+		iSpaceCount = sData.count(" ")
+		if iSpaceCount < iTotalPad:
+			sRet = sData.replace(" ",",")
+			for i in range(iTotalPad-iSpaceCount-1):
+				sRet = sRet + ",0"
+		print(sRet)
+		return sRet
+			
