@@ -51,6 +51,19 @@ class TrainingFile:
 		# sTableCards -> Tables on the table before the computer draws next card
 		# sCompCards -> Computers cards before the computer draws next card
 		# sNextCompCard -> Card drawn by the computer using the rand() function
+
+		print( type(sTableCards) )
+		print( type(sCompCards) )
+		print( type(sNextCompCard) )
+
+		# Replace card letters to numbers
+		sTableCards = self.lettersToInt( str(sTableCards) )
+		sCompCards = self.lettersToInt( str(sCompCards) )
+		sNextCompCard = self.lettersToInt( str(sNextCompCard) )
+
+		print("HERE: " + sCompCards)
+
+		# Push to data structure
 		sDataLine = self.spaceToComma(sTableCards,self.iXpad) + "," + self.spaceToComma(sCompCards,self.iYpad) + "," + sNextCompCard
 		#self.lData.append( sTableCards + "," + sCompCards + "," + sNextCompCard + "," + sPointsEarned )
 		self.lData.append( sDataLine )
@@ -98,17 +111,29 @@ class TrainingFile:
 		# Ensure number of spaces is less than TotalPad
 		# Pad data to TotalPad
 		# Change space -> comma
-		print(sData)
+#		print(sData)
 		# Remove the first char if it a space		
 		if sData[:1] == " ":
 			sData = sData[1:]
-		print(sData)
+#		print(sData)
 		sRet = ""
 		iSpaceCount = sData.count(" ")
 		if iSpaceCount < iTotalPad:
 			sRet = sData.replace(" ",",")
 			for i in range(iTotalPad-iSpaceCount-1):
 				sRet = sRet + ",0"
-		print(sRet)
+#		print(sRet)
 		return sRet
+	
+	def lettersToInt(self,sStrCards):
+
+		sStrCards.upper()
+		sStrCards.replace("A","1")
+		sStrCards.replace("J","8")
+		sStrCards.replace("Q","9")
+		sStrCards.replace("K","10")
+
+		return sStrCards
+		
+		
 			

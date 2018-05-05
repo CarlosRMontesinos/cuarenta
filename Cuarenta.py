@@ -105,7 +105,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 			self.lePlayCard.clear()
 
 			# Indicate the user of the problem
-			print("Card NOT in card set")
+			#print("Card NOT in card set")
 
 	def GameRound(self):
 
@@ -125,7 +125,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 
 		# IF comp turn
 		if self.bCompTurn:
-			print("computer turn")
+#			print("computer turn")
 			# IF training
 			if self.bTraining:
 				# Select rand() next card from comp cards and add to table cards\
@@ -143,7 +143,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 		# ELSE
 		else:
 			# Take user's card and add to the table
-			print("my turn")
+#			print("my turn")
 			sPlayersCard = self.lePlayCard.text().toUpper()
 			# Store the card for training purposes
 			sNextCard = sPlayersCard
@@ -168,8 +168,8 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 #			self.loTableCards[iLen-1].bLast = False
 
 		# Grant points and cards
-		print( iPointsEarned )
-		print( self.CardListToString(loCardsEarned) )
+#		print( iPointsEarned )
+#		print( self.CardListToString(loCardsEarned) )
 
 		if self.bCompTurn:
 			self.iCompPoints = self.iCompPoints + iPointsEarned
@@ -211,7 +211,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 		self.lbPlayerEarnedCards.setText( self.CardListToString(self.loPlayerEarnedCards ) )
 
 		# Check if players ran out of cards
-		print( "iCardCount: " + str(self.iCardCount) )	
+#		print( "iCardCount: " + str(self.iCardCount) )	
 		if self.iCardCount == 10 or self.iCardCount == 20 or self.iCardCount == 30:
 			self.loPlayerCards = self.oCardDeck.deal()
 			self.loCompCards = self.oCardDeck.deal()
