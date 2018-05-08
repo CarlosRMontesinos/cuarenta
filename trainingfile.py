@@ -52,20 +52,22 @@ class TrainingFile:
 		# sCompCards -> Computers cards before the computer draws next card
 		# sNextCompCard -> Card drawn by the computer using the rand() function
 
-		print( type(sTableCards) )
-		print( type(sCompCards) )
-		print( type(sNextCompCard) )
+#		print( type(sTableCards) )
+#		print( type(sCompCards) )
+#		print( type(sNextCompCard) )
 
 		# Replace card letters to numbers
-		sTableCards = self.lettersToInt( str(sTableCards) )
-		sCompCards = self.lettersToInt( str(sCompCards) )
-		sNextCompCard = self.lettersToInt( str(sNextCompCard) )
+		print("HERE: " + sTableCards + " " + sCompCards + " " + sNextCompCard)		
+		sTableCards = self.lettersToInt( sTableCards )
+		sCompCards = self.lettersToInt( sCompCards )
+		sNextCompCard = self.lettersToInt( sNextCompCard )
 
-		print("HERE: " + sCompCards)
+		print("HERE: " + sTableCards + " " + sCompCards + " " + sNextCompCard)
 
 		# Push to data structure
 		sDataLine = self.spaceToComma(sTableCards,self.iXpad) + "," + self.spaceToComma(sCompCards,self.iYpad) + "," + sNextCompCard
 		#self.lData.append( sTableCards + "," + sCompCards + "," + sNextCompCard + "," + sPointsEarned )
+		print(sDataLine)
 		self.lData.append( sDataLine )
 
 
@@ -126,13 +128,13 @@ class TrainingFile:
 		return sRet
 	
 	def lettersToInt(self,sStrCards):
-
-		sStrCards.upper()
-		sStrCards.replace("A","1")
-		sStrCards.replace("J","8")
-		sStrCards.replace("Q","9")
-		sStrCards.replace("K","10")
-
+		
+		sStrCards = sStrCards.upper()
+		sStrCards = sStrCards.replace("A","1")
+		sStrCards = sStrCards.replace("J","8")
+		sStrCards = sStrCards.replace("Q","9")
+		sStrCards = sStrCards.replace("K","10")
+		
 		return sStrCards
 		
 		

@@ -133,7 +133,8 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 				# Append to temp list
 				self.loTableCards.append( self.loCompCards[i] )
 				# Store the card for training purposes
-				sNextCard = ( self.loCompCards[i].sVal)
+		# Works   #sNextCard = ( self.loCompCards[i].sVal)
+				sNextCard = self.loCompCards[i].sVal.upper()
 				# Remove from current list
 				self.loCompCards.remove( self.loCompCards[i] )
 			# ELSE
@@ -144,7 +145,8 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 		else:
 			# Take user's card and add to the table
 #			print("my turn")
-			sPlayersCard = self.lePlayCard.text().toUpper()
+	# Works		#sPlayersCard = self.lePlayCard.text().toUpper()
+			sPlayersCard = str(self.lePlayCard.text()).upper()
 			# Store the card for training purposes
 			sNextCard = sPlayersCard
 			# Append card to table list
@@ -180,7 +182,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 
 		# Store data for training purposes
 		if TRAINIG_FLAG == True and iPointsEarned > 0:
-			if self.bCompTurn:		
+			if self.bCompTurn:
 				self.oTrainingFile.pushToStruct(sTableCards,sCompCards,sNextCard )
 			else:
 				self.oTrainingFile.pushToStruct(sTableCards,sPlayerCards,sNextCard )
