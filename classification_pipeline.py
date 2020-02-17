@@ -54,30 +54,35 @@ results = cross_val_score(estimator, X, dummy_y, cv=kfold)
 print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
 
 # train
-estimator.fit(X, Y)
+#estimator.fit(X, Y)
 
 # estimate / predict Yp = [Prob NO , Prob YES]
-print("Yp:     NO    |    YES")
-Sample_x = np.array([[0,0,1]]) # (~1, 0) | We expect a NO
-Yp = estimator.predict_proba(Sample_x)
-print( "Yp:" + str(Yp))
+#print("Yp:     NO    |    YES")
+#Sample_x = np.array([[1,2,1]]) # (~1, 0) | We expect a NO
+#Yp = estimator.predict_proba(Sample_x)
+#print( "Yp:" + str(Yp))
 
-Sample_x = np.array([[0,0,0]]) # (~1, 0) | We expect a NO
-Yp = estimator.predict_proba(Sample_x)
-print( "Yp:" + str(Yp))
+#Sample_x = np.array([[2,1,2]]) # (~1, 0) | We expect a NO
+#Yp = estimator.predict_proba(Sample_x)
+#print( "Yp:" + str(Yp))
 
-Sample_x = np.array([[0,1,1]]) # (0, ~1) | We expect a YES
-Yp = estimator.predict_proba(Sample_x)
-print( "Yp:" + str(Yp))
+# Save model
+model.save("cuarenta_model.ml")
 
-Sample_x = np.array([[0,1,0]]) # (~1, 0) | We expect a NO
-Yp = estimator.predict_proba(Sample_x)
-print( "Yp:" + str(Yp))
 
-Sample_x = np.array([[1,1,1]]) # (0, ~1) | We expect a YES
-Yp = estimator.predict_proba(Sample_x)
-print( "Yp:" + str(Yp))
 
-Sample_x = np.array([[1,0,1]]) # (~1, 0) | We expect a NO
-Yp = estimator.predict_proba(Sample_x)
-print( "Yp:" + str(Yp))
+#Sample_x = np.array([[0,1,1]]) # (0, ~1) | We expect a YES
+#Yp = estimator.predict_proba(Sample_x)
+#print( "Yp:" + str(Yp))
+
+#Sample_x = np.array([[0,1,0]]) # (~1, 0) | We expect a NO
+#Yp = estimator.predict_proba(Sample_x)
+#print( "Yp:" + str(Yp))
+
+#Sample_x = np.array([[1,1,1]]) # (0, ~1) | We expect a YES
+#Yp = estimator.predict_proba(Sample_x)
+#print( "Yp:" + str(Yp))
+
+#Sample_x = np.array([[1,0,1]]) # (~1, 0) | We expect a NO
+#Yp = estimator.predict_proba(Sample_x)
+#print( "Yp:" + str(Yp))
