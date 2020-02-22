@@ -78,6 +78,8 @@ if bTEST == True:
 else:
 	Sample_x = np.array([[7,4,2,4,3,9,5,3,6,9,2,9,5,10,1,10,7,10,9,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1,6,1,0]]) # Expecting: 1
 
+print("Sample_x:" + str(Sample_x))
+print("Dimension:" + str(Sample_x.shape))
 # For the output of 3 the array shows the probability of each category --> [0.2%, 0.2%, 0.6%] --> This means that category 2 has higher probability
 Yp = model.predict_proba(Sample_x)
 print("Yp:" + str(Yp))

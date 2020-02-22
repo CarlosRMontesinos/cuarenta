@@ -67,10 +67,30 @@ class TrainingFile:
 		# Push to data structure
 		sDataLine = self.spaceToComma(sTableCards,self.iXpad) + "," + self.spaceToComma(sCompCards,self.iYpad) + "," + sNextCompCard
 		#self.lData.append( sTableCards + "," + sCompCards + "," + sNextCompCard + "," + sPointsEarned )
-		print(sDataLine)
+		print("sDataLine " + sDataLine)
 		self.lData.append( sDataLine )
 
+	def strToCSV(self,sTableCards,sCompCards):
+		
+		# Parameter definiions during the training stage
+		# sTableCards -> Cards on the table before the computer draws next card
+		# sCompCards -> Computers cards before the computer draws next card
 
+#		print( type(sTableCards) )
+#		print( type(sCompCards) )
+
+		# Replace card letters to numbers
+		print("HERE: " + sTableCards + " " + sCompCards)		
+		sTableCards = self.lettersToInt( sTableCards )
+		sCompCards = self.lettersToInt( sCompCards )
+		print("HERE: " + sTableCards + " " + sCompCards)
+
+		# Push to data structure
+		sCSV = self.spaceToComma(sTableCards,self.iXpad) + "," + self.spaceToComma(sCompCards,self.iYpad)
+		print("sCSV " + sCSV)
+		
+		return sCSV
+		
 	def pushToFiles(self):
 		
 		# Split data into training and test 70%/30%

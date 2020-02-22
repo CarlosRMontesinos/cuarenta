@@ -3,7 +3,9 @@ import trainingfile
 import random
 import sys
 from PyQt4 import QtCore, QtGui, uic
-#import QtCore, QtGui, uic
+import numpy as np # Import required libraries
+import keras # Keras specific
+
 
 qtCreatorFile = "Cuarenta.ui" # Enter the .ui file name here.
 
@@ -43,6 +45,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 	loPlayerEarnedCards = []
 	sNextCard = "" # For training purposes
 	oTrainingFile = trainingfile.TrainingFile()
+	oModel = keras.models.load_model("cuarenta_model.ml") # Load model
 
 	def __init__(self):
 
@@ -63,7 +66,6 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 
 		# Update UI with cards
 		self.lbMyCards.setText( self.CardListToString(self.loPlayerCards) )
-	#	self.lbCompCards.setText( self.CardListToString(self.loCompCards) )
 
 	def closeEvent(self, event):
 		print "closing Cuarenta"
@@ -128,15 +130,36 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 #			print("computer turn")
 			# IF training
 			if self.bTraining:
-				# Select rand() next card from comp cards and add to table cards\
+
+				# Create input for the ML model: Table + Computer cards vector
+				# sInput_x = sTableCards + sCompCards # ([[x,x,...,x]])
+				sInput_x = self.oTrainingFile.strToCSV(sTableCards,sCompCards)
+				npTempInput_x = np.fromstring(sInput_x, dtype=int, sep=',')
+				npInput_x = npTempInput_x.reshape(1,npTempInput_x.size)
+				print("npInput_x")
+				print(npInput_x)
+				print("Dimension")
+				print(npInput_x.shape)
+				#npInput_x = np.array(aInput_x)
+				npOutput_Y = self.oModel.predict_proba(npInput_x)
+				print("npOutput_Y")
+				print(npOutput_Y)
+
+				# Identify which card to put down based on the highest priority
+				
+				# Check if that card in in the comp cards set, if so, put it down, otherwise get a random one
+
+				# Select rand() next card from comp cards and add to table cards
 				i = random.randint(0, len(self.loCompCards)-1 )
+				loTempCompCards = self.loCompCards[i]
+								
 				# Append to temp list
-				self.loTableCards.append( self.loCompCards[i] )
+				self.loTableCards.append( loTempCompCards )
 				# Store the card for training purposes
-		# Works   #sNextCard = ( self.loCompCards[i].sVal)
 				sNextCard = self.loCompCards[i].sVal.upper()
 				# Remove from current list
 				self.loCompCards.remove( self.loCompCards[i] )
+				
 			# ELSE
 			else:
 				# Evaluate learning model to select next card
@@ -144,8 +167,6 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 		# ELSE
 		else:
 			# Take user's card and add to the table
-#			print("my turn")
-	# Works		#sPlayersCard = self.lePlayCard.text().toUpper()
 			sPlayersCard = str(self.lePlayCard.text()).upper()
 			# Store the card for training purposes
 			sNextCard = sPlayersCard
