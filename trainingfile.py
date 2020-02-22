@@ -36,7 +36,7 @@ class TrainingFile:
 	def push(self,sTableCards,sCompCards,sNextCompCard,sPointsEarned):
 		
 		# Parameter definiions during the training stage
-		# sTableCards -> Tables on the table before the computer draws next card
+		# sTableCards -> Cards on the table before the computer draws next card
 		# sCompCards -> Computers cards before the computer draws next card
 		# sNextCompCard -> Card drawn by the computer using the rand() function
 		# sPointsEarned -> Points earned after the table has been evaluated
@@ -48,7 +48,7 @@ class TrainingFile:
 	def pushToStruct(self,sTableCards,sCompCards,sNextCompCard):
 		
 		# Parameter definiions during the training stage
-		# sTableCards -> Tables on the table before the computer draws next card
+		# sTableCards -> Cards on the table before the computer draws next card
 		# sCompCards -> Computers cards before the computer draws next card
 		# sNextCompCard -> Card drawn by the computer using the rand() function
 
@@ -100,7 +100,7 @@ class TrainingFile:
 			# Print Training Data
 			oFile = io.open(self.sTrainFileFullPath,"w+")
 			# Print first line (# Data Rows, # Label Columns) 
-			oFile.write( unicode( str( len(self.lData) ) + "," + str(iNumOfLabels) + "\n") )
+			#oFile.write( unicode( str( len(self.lData) ) + "," + str(iNumOfLabels) + "\n") )
 			for sDataLine in self.lData:
 	  			oFile.write( unicode( sDataLine + "\n") )
 			oFile.close()	

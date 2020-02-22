@@ -66,7 +66,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 	#	self.lbCompCards.setText( self.CardListToString(self.loCompCards) )
 
 	def closeEvent(self, event):
-		print "closing PyQtTest"
+		print "closing Cuarenta"
 		self.oTrainingFile.pushToFiles()
 
 	def initVars(self):
