@@ -6,7 +6,6 @@ class Card():
 		self.sVal = sVal
 		self.bLast = True
 
-
 class Deck():
 
 	def __init__(self):
@@ -50,3 +49,20 @@ class Deck():
 	def printCards(self):
 		for i in self.lCards:
 			print( i.sVal )
+
+	def intToCardChar(self,iVal):
+		# Cards in 40 look like this ["A","2","3","4","5","6","7","J","Q","K"]
+		# This functions take an integer and maps in into it's corresponding char
+		sCardStr = "NAN"
+		if iVal > 0 and iVal < 11:
+			if iVal == 1:
+				sCardStr = "A"
+			elif iVal == 8:
+				sCardStr = "J"
+			elif iVal == 9:
+				sCardStr = "Q"
+			elif iVal == 10:
+				sCardStr = "K"
+			else:
+				sCardStr = str(iVal)
+		return sCardStr

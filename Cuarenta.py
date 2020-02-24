@@ -136,29 +136,50 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 				sInput_x = self.oTrainingFile.strToCSV(sTableCards,sCompCards)
 				npTempInput_x = np.fromstring(sInput_x, dtype=int, sep=',')
 				npInput_x = npTempInput_x.reshape(1,npTempInput_x.size)
-				print("npInput_x")
-				print(npInput_x)
-				print("Dimension")
-				print(npInput_x.shape)
-				#npInput_x = np.array(aInput_x)
-				npOutput_Y = self.oModel.predict_proba(npInput_x)
-				print("npOutput_Y")
-				print(npOutput_Y)
-
-				# Identify which card to put down based on the highest priority
 				
-				# Check if that card in in the comp cards set, if so, put it down, otherwise get a random one
+				# Predict what card to put down based on the highest priority
+				npOutput_Y = self.oModel.predict_proba(npInput_x)
+				#print("npOutput_Y")
+				#print(npOutput_Y)	
+				iNextCard = np.argmax(npOutput_Y) # Next index of the next card is the Next Card.
+				sNextCard = self.oCardDeck.intToCardChar(iNextCard) # Convert the index card into 40 string card. This includes J, Q, K
+				# Get the index where the next card is stored
+				#print("sNextCard: " + sNextCard)
+				iCardIndex = -1
+				iCount = -1
+				for i in self.loCompCards:
+					iCount = iCount + 1
+					print(i.sVal)					
+					if i.sVal == sNextCard:
+						iCardIndex = iCount						
+						break
+				if iCardIndex != -1:
 
-				# Select rand() next card from comp cards and add to table cards
-				i = random.randint(0, len(self.loCompCards)-1 )
-				loTempCompCards = self.loCompCards[i]
+					print("Picking a card based on PROB()")		
+					oTempCompCard = self.loCompCards[iCardIndex]
+					# Append to temp list
+					self.loTableCards.append( oTempCompCard )
+					# Store the card for training purposes
+					# sNextCard = self.loCompCards[iNextCard].sVal.upper()
+
+					# Remove from current list
+					self.loCompCards.remove( self.loCompCards[iCardIndex] )
+				else:
+				    	# List does not contain value			
+	
+					print("Picking a RAND() card")					
+					# Select rand() next card from comp cards and add to table cards
+					i = random.randint(0, len(self.loCompCards)-1 )
+					oTempCompCard = self.loCompCards[i]
 								
-				# Append to temp list
-				self.loTableCards.append( loTempCompCards )
-				# Store the card for training purposes
-				sNextCard = self.loCompCards[i].sVal.upper()
-				# Remove from current list
-				self.loCompCards.remove( self.loCompCards[i] )
+					# Append to temp list
+					self.loTableCards.append( oTempCompCard )
+					# Store the card for training purposes
+					sNextCard = self.loCompCards[i].sVal.upper()
+
+					# Remove from current list
+					#print("loCompCards[i]" + self.loCompCards[i].sVal)
+					self.loCompCards.remove( self.loCompCards[i] )
 				
 			# ELSE
 			else:
